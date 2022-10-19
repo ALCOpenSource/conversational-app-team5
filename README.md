@@ -1,1 +1,6 @@
-# conversational-app-team5
+# MasterMinds
+This is a conversational learning platform.
+
+### Frontend
+
+### Backend
