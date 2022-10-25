@@ -67,3 +67,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+backend/node_modules
+backend/.env
