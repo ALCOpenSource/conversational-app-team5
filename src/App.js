@@ -39,7 +39,8 @@ const uiConfig = {
 
 const validateToken = () => {
   firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-    fetch('masterminds-9786b.web.app/api/v1/validate-token', {
+    console.log(idToken)
+    fetch('https://masterminds-9786b.web.app/api/v1/validate-token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,8 +62,16 @@ const validateToken = () => {
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = React.useState(false);
-
   React.useEffect(() => {
+    if (isSignedIn) {
+      console.log();
+      console.log(isSignedIn);
+      /**
+       * The call to validateToken is a test to showcase the passing of the token to the backend to be deployed. This would be required to ensure only authorized users hit our api!!!
+       */
+      validateToken();
+    }
+
     const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
       setIsSignedIn(!!user);
     });
@@ -71,12 +80,8 @@ const App = () => {
   }, []);
 
   if (isSignedIn) {
-    /**
-     * The call to validateToken is a test to showcase the passing of the token to the backend to be deployed. This would be required to ensure only authorized users hit our api!!!
-     */
-    validateToken();
-
-
+    console.log();
+    console.log(isSignedIn);
 
     return (<div className='container mx-auto font-bold text-3xl'>
       <h1>My App</h1>
