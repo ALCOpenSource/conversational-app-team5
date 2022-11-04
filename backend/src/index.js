@@ -31,9 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 require('../database')();
 
 const TokenRoute = require('../routes/token');
-const UserRoute = require('../routes/users');
+const UsersRoute = require('../routes/users');
+const CoursesRoute = require('../routes/courses');
 
-app.use('/users', UserRoute);
+app.use('/users', UsersRoute);
+app.use('/courses', CoursesRoute);
 app.use('/validate-token', TokenRoute );
 
 //404 handler and pass to error handler
