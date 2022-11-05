@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { SnackbarProvider } from 'notistack';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './contexts/ContextProvider';
+import { Login, Register } from './pages';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +14,13 @@ root.render(
   <SnackbarProvider
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-    <App />
+    {/* <AuthProvider> */}
+    <Routes>
+    <Route path="/*" element={<App />} /> 
+    {/* <Route path="/login" element={(<Login />)} />
+    <Route path="/register" element={(<Register />)} /> */}
+    </Routes>
+    {/* </AuthProvider> */}
   </SnackbarProvider>
   </BrowserRouter>
 </React.StrictMode>
