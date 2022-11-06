@@ -1,101 +1,33 @@
 import React from 'react';
-import SignIn from './auth/signin';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-
-
-// Configure Firebase.
-const config = {
-  apiKey: "APPID",
-  authDomain: "masterminds-9786b.firebaseapp.com",
-  projectId: "masterminds-9786b",
-  storageBucket: "masterminds-9786b.appspot.com",
-  messagingSenderId: "651708189533",
-  appId: "1:651708189533:web:c35688e35b055069c576b4",
-  measurementId: "G-G805F4B5HZ"
-};
-
-// Initialize Firebase
-firebase.initializeApp(config);
-
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: 'popup',
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    // firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    // firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-    // firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID,
-  ],
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: () => false,
-  },
-};
-
-const validateToken = () => {
-  firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-    console.log(idToken)
-    fetch('https://masterminds-9786b.web.app/api/v1/validate-token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: idToken
-      }),
-    } ).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }).catch(function(error) {
-    // Handle error
-  });
-}
+import logo from '../assets/logo.png'
+import Login from './Login';
+import { auth, uiConfig } from '../contexts/auth';
 
 const Register = () => {
-  const [isSignedIn, setIsSignedIn] = React.useState(false);
-  React.useEffect(() => {
-    if (isSignedIn) {
-      console.log();
-      console.log(isSignedIn);
-      /**
-       * The call to validateToken is a test to showcase the passing of the token to the backend to be deployed. This would be required to ensure only authorized users hit our api!!!
-       */
-      validateToken();
-    }
-
-    const unregisterAuthObserver = firebase.auth().onAuthStateChanged(user => {
-      setIsSignedIn(!!user);
-    });
-    
-    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
-
-  if (isSignedIn) {
-    console.log();
-    console.log(isSignedIn);
-
-    return (<div className='container mx-auto font-bold text-3xl'>
-      <h1>My App</h1>
-      <p>Welcome {firebase.auth().currentUser.displayName}! You are now signed-in!</p>
-      <a href='#' onClick={() => firebase.auth().signOut()}>Sign-out</a>
-    </div>)
-  }
 
   return (
-    <SignIn
+    <div className="container mx-auto flex items-center min-h-screen p-6 justify-center">
+    <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl'>
+    <div className='flex flex-col overflow-y-auto md:flex-row'>
+    <div className='h-32 md:h-auto md:w-1/2'>
+           <img src={logo} className="object-cover  w-full h-full" alt='logo' />   
+    </div>
+    <div className='flex items-center justify-center p-6 sm:p-12 md:w-1/2'>
+    <div className='w-full'>
+    <h1 className='mb-6 text-2xl font-semibold text-gray-700 dark:text-gray-200'>Welcome!!!</h1>
+    <p className='mb-5 text-[#2D2D2D] font-light text-sm'>MasterMinds provides you with the best learning platform</p>
+    <div className='p-10 cursor-pointer'>
+    <Login
       uiConfig={uiConfig}
-      firebaseAuth={firebase.auth()}
+      firebaseAuth={auth}
       className=""
     />
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
   )
 }
 

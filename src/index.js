@@ -14,13 +14,13 @@ root.render(
   <SnackbarProvider
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     >
-    {/* <AuthProvider> */}
+    <AuthProvider>
     <Routes>
     <Route path="/*" element={<App />} /> 
-    {/* <Route path="/login" element={(<Login />)} />
-    <Route path="/register" element={(<Register />)} /> */}
+    <Route path="/login" element={(<Login />)} />
+    <Route path="/register" element={(<Register />)} />
     </Routes>
-    {/* </AuthProvider> */}
+    </AuthProvider>
   </SnackbarProvider>
   </BrowserRouter>
 </React.StrictMode>
