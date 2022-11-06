@@ -7,7 +7,6 @@ import { Accounts, Courses, Home } from './pages';
 import { AuthContext } from './contexts/ContextProvider';
 import { useContext } from 'react';
 
-
 function App() {
   const { currentUser } = useContext(AuthContext);
 
