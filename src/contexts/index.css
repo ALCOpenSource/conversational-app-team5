@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+/* Color Theme Swatches in Hex */
+.My-Color-Theme-1-hex { color: #0F1926; }
+.My-Color-Theme-2-hex { color: #273640; }
+.My-Color-Theme-3-hex { color: #425059; }
+.My-Color-Theme-4-hex { color: #77868C; }
+.My-Color-Theme-5-hex { color: #D9D4D2; }
+
+/* Color Theme Swatches in RGBA */
+.My-Color-Theme-1-rgba { color: rgba(15, 25, 38, 1); }
+.My-Color-Theme-2-rgba { color: rgba(39, 54, 64, 1); }
+.My-Color-Theme-3-rgba { color: rgba(66, 80, 89, 1); }
+.My-Color-Theme-4-rgba { color: rgba(119, 134, 140, 1); }
+.My-Color-Theme-5-rgba { color: rgba(217, 212, 210, 1); }
+
+/* Color Theme Swatches in HSLA */
+.My-Color-Theme-1-hsla { color: hsla(213, 43, 10, 1); }
+.My-Color-Theme-2-hsla { color: hsla(204, 24, 20, 1); }
+.My-Color-Theme-3-hsla { color: hsla(203, 14, 30, 1); }
+.My-Color-Theme-4-hsla { color: hsla(197, 8, 50, 1); }
+.My-Color-Theme-5-hsla { color: hsla(17, 8, 83, 1); }
+
+
+body {
+    margin: 0;
+    padding:0;
+    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    transition: ease-in-out;
+}
+
+.small {
+  zoom: 75%;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
