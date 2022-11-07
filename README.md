@@ -1,3 +1,4 @@
+![WhatsApp Image 2022-10-19 at 13 52 45](https://user-images.githubusercontent.com/20986115/199785166-1d9e3367-da7f-40b2-8d36-e2bc0f3bc735.jpg)
 # MasterMinds
 This is a conversational learning platform.
 
