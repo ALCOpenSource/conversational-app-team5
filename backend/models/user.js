@@ -5,7 +5,29 @@ const schema = new mongoose.Schema({
     required: true,
     type: String
   },
-});
+
+  phone_number: String,
+
+  email: {
+    type: String,
+    required: true
+  },
+
+  password: {
+    type: String,
+    required: true
+  },
+
+  user_type: {
+    type: String,
+    enum: ["user", "author"],
+    required: true
+  }
+  },
+  {
+  timestamps: true
+  }
+);
 
 const User = mongoose.model('users', schema);
 
