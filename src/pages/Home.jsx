@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { auth } from '../contexts/auth'
+import { AuthContext } from '../contexts/ContextProvider';
 
 const Home = () => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <div>
-      Home
-      <p>Welcome {auth.currentUser.displayName}! You are now signed-in!</p>
-    </div>
+       <h2> Home</h2>
+  
+     </div>
   )
 }
 
