@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         if (user) {
           enqueueSnackbar(
             'Log in Successful.',
-            { variant: 'success', autoHideDuration: 500 }
+            { variant: 'success', autoHideDuration: 1000 }
           );     
           console.log(user)
           // User is signed in.
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
         console.log(error);
         enqueueSnackbar(
           'Log in Failed.',
-          { variant: 'fail', autoHideDuration: 15000 }
+          { variant: 'fail', autoHideDuration: 1000 }
         );
       });
     };
