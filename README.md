@@ -23,3 +23,6 @@ This is a conversational learning platform.
 - npm run dev // This starts your backend 
 
 
+##Frontend - Host Update 
+- hosted on netlify 
+- https://masterminds-app.netlify.app/
