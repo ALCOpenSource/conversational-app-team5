@@ -1,23 +1,8 @@
 const cors = require('cors');
 const express = require('express');
 const config = require("../config");
-const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
-
-const fireStoreConfig = {
-  apiKey: config.apiKey,
-  authDomain: "masterminds-9786b.firebaseapp.com",
-  projectId: "masterminds-9786b",
-  storageBucket: "masterminds-9786b.appspot.com",
-  messagingSenderId: "651708189533",
-  appId: "1:651708189533:web:c35688e35b055069c576b4",
-  measurementId: "G-G805F4B5HZ"
-};
-
-
-admin.initializeApp(fireStoreConfig);
-
 
 const app = express();
 app.use(cors());
@@ -30,14 +15,22 @@ app.use(express.urlencoded({ extended: true }));
 // Setup Database
 require('../database')();
 
-const TokenRoute = require('../routes/token');
 const UsersRoute = require('../routes/users');
 const CoursesRoute = require('../routes/courses');
+const authMiddleWare = require('../auth/index');
 
-app.use('/users', UsersRoute);
-app.use('/courses', CoursesRoute);
-app.use('/validate-token', TokenRoute );
+/**
+ *
+ * app.use(authMiddleWare);
+*/
 
+
+
+app.use('/v1/users', authMiddleWare, UsersRoute);
+app.use('/v1/courses', authMiddleWare, CoursesRoute);
+app.use('/v1/status', (req, res, next) => {
+  return res.json({ message: 'Hello World.' });
+});
 //404 handler and pass to error handler
 app.use((req, res, next) => {
   next(createError(404, 'Not found'));

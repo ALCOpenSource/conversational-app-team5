@@ -11,12 +11,15 @@ This is a conversational learning platform.
 
 ## Backend - Nodejs, Express
 ### How to contribute to the Backend Server
-- Step 1    cd backend 
-- Step 2    npm install 
-- Step 3    npm run dev // This starts your backend 
+- cd backend 
+- Setup
 
-## Setup
-Create a .env file to include the various environmental variables used within the app. These are:
+	> - Set the environment variable **GOOGLE_APPLICATION_CREDENTIALS** to the file path of the JSON file that contains your service account key [Refer to docs](https://firebase.google.com/docs/admin/setup#initialize-sdk)
+	> - Create a .env file to include the various environmental variables used within the app. These are:
+	>	- DATABASE_URL
+	>	- API_KEY
+	
+- npm install 
+- npm run dev // This starts your backend 
 
-- DATABASE_URL
 
