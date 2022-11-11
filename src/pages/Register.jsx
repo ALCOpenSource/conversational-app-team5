@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import logo from '../assets/logo.png'
 import Login from './Login';
 import { auth, uiConfig } from '../contexts/auth';
+import { AuthContext } from '../contexts/ContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const { currentUser } = useContext(AuthContext);
+
+
+  const navigate = useNavigate();
+   
+  useEffect(() => {
+    if(currentUser) {
+      navigate("/")
+    }
+  }, [currentUser, navigate]);
+
 
   return (
     <div className="container mx-auto flex items-center min-h-screen p-6 justify-center">
