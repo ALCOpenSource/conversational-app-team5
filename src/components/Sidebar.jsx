@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GoHome } from 'react-icons/go';
 import logo from '../assets/logo.png'
 import { HiOutlineAcademicCap } from 'react-icons/hi'
@@ -6,8 +6,9 @@ import { RiAccountPinCircleFill, RiLogoutBoxLine } from 'react-icons/ri'
 import { AiOutlineSchedule, AiOutlineFileText, AiOutlineSetting } from "react-icons/ai"
 import { GiArchiveResearch } from 'react-icons/gi'
 import { MdAnalytics } from 'react-icons/md'
-import { Link } from "react-router-dom";
-import { app } from "../contexts/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/ContextProvider";
+import { auth } from "../contexts/auth";
 
 
 const Sidebar = () => {
@@ -22,6 +23,20 @@ const Sidebar = () => {
       { title: "Files", icon: <AiOutlineFileText/>, gap: true },
       { title: "Setting", icon: <AiOutlineSetting/> },
     ];
+
+    const { dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const logout = () => {
+      dispatch({ type: 'USER_LOGOUT' });
+      localStorage.clear('user');
+      navigate('/register');
+    }
+
+    // const unregisterAuthObserver = auth.onAuthStateChanged(user => {
+    //   setCurrentUser(null);
+    //   localStorage.clear();
+    // });
   return (
    <div
       className={` ${
@@ -65,7 +80,7 @@ const Sidebar = () => {
         className={`flex rounded-md p-2 cursor-pointer text-black hover:bg-[#D9D4D2]
          active:bg-[#77868C]  text- text-sm items-center gap-x-4 mt-2`}>
           <RiLogoutBoxLine />
-          <a href='/' onClick={() => app.auth().signOut()}
+          <a href='/register' onClick={() => logout()}
           className={`${!open && "hidden"} origin-left duration-200`}>Sign-out</a>
           </li>
       </ul>

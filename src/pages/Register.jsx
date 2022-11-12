@@ -6,16 +6,17 @@ import { AuthContext } from '../contexts/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { state } = useContext(AuthContext);
+  const { user } = state
 
 
   const navigate = useNavigate();
    
   useEffect(() => {
-    if(currentUser) {
+    if(user) {
       navigate("/")
     }
-  }, [currentUser, navigate]);
+  }, [user, navigate]);
 
 
   return (
