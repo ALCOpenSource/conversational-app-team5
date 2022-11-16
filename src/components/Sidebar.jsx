@@ -14,14 +14,14 @@ import { auth } from "../contexts/auth";
 const Sidebar = () => {
     const [open, setOpen] = useState(true);
     const Menus = [
-      { title: "Home", icon: <GoHome/> },
-      { title: "Courses", icon: <HiOutlineAcademicCap/>},
-      { title: "Accounts", icon: <RiAccountPinCircleFill/>, gap: true },
-      { title: "Schedule", icon: <AiOutlineSchedule/> },
-      { title: "Search", icon: <GiArchiveResearch/> },
-      { title: "Analytics", icon: <MdAnalytics />},
-      { title: "Files", icon: <AiOutlineFileText/>, gap: true },
-      { title: "Setting", icon: <AiOutlineSetting/> },
+      { title: "home", icon: <GoHome/>, href: "" },
+      { title: "courses", icon: <HiOutlineAcademicCap/>, href: "courses"},
+      { title: "accounts", icon: <RiAccountPinCircleFill/>, gap: true, href: "accounts"},
+      { title: "schedule", icon: <AiOutlineSchedule/>, href: "schedule" },
+      { title: "search", icon: <GiArchiveResearch/>, href: "search" },
+      { title: "analytics", icon: <MdAnalytics />, href: "analytics"},
+      { title: "files", icon: <AiOutlineFileText/>, gap: true, href: "files" },
+      { title: "setting", icon: <AiOutlineSetting/>, href: "setting" },
     ];
 
     const { dispatch } = useContext(AuthContext);
@@ -29,7 +29,7 @@ const Sidebar = () => {
 
     const logout = () => {
       dispatch({ type: 'USER_LOGOUT' });
-      localStorage.clear('user');
+      // localStorage.clear('user');
       navigate('/register');
     }
 
@@ -70,7 +70,7 @@ const Sidebar = () => {
             ${Menu.gap ? "mt-9" : "mt-2"}`}
           >
             <div>{Menu.icon}</div>
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
+            <span className={`${!open && "hidden"} capitalize origin-left duration-200`}>
               {Menu.title}
             </span>
           </li>

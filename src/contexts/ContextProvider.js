@@ -10,6 +10,7 @@ const initialState = {
   user: localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null,
+  courses: localStorage.getItem('courses'),
 };
 
 export function useAuth() {
@@ -27,7 +28,9 @@ function reducer(state, action) {
       return {
           ...state,
           user: null,
-        };    
+        };  
+        case 'COURSES':
+          return { ...state, courses: action.payload }; 
       }
   };
 

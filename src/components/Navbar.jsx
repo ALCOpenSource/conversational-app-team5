@@ -1,5 +1,7 @@
 import React from 'react';
 import { GrFormSearch } from 'react-icons/gr';
+import logo from '../assets/logo.png'
+
 
 const Navbar = ({user}) => {
   return (
@@ -20,8 +22,11 @@ const Navbar = ({user}) => {
           <GrFormSearch fontSize={38} color="#0F1926" className=' md:hidden text-center text-[#0F1926] cursor-pointer'/>
           </div>
           <div className='flex flex-row justify-between gap-x-5 items-center '>
-          <img src={user.photoURL} className='rounded-full w-12 h-12  ' alt='userimage' />
+          <img src={user.photoURL} className='rounded-full w-12 h-12 ' alt='userimage' />
           <div className='text-end'>{user.displayName}</div>
+          {/* <img src={logo} className='rounded-full w-12 h-12' alt="" />
+          <div className='text-end'>Masterminds</div> */}
+      
           </div>
         </div>
       </nav>
