@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaTimes } from 'react-icons/fa'
+import { useForm } from 'react-hook-form';
+import { useNavigate } from "react-router-dom";
 
 const Modal = ({ showModal, setShowModal }) => {
-    const [ options, setOptions] = useState({
-        user: '',
-        author: ''
-    })
+    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+      } = useForm();
+
+      const submitHandler = async (data) => {
+        console.log("Data",  data );
+        if(data.user) {
+            navigate('/courses');
+        }
+        if(data.author){
+            navigate('/create-course')
+        }
+    }
   return (
     <>
       {showModal ? (
@@ -22,49 +35,45 @@ const Modal = ({ showModal, setShowModal }) => {
                   <button
                     className="bg-transparent border-0 text-red-500 text-end"
                     onClick={() => setShowModal(false)}
-                  >
+                   >
                     <FaTimes className="cursor-pointer" fontSize={20}/>
                   </button>
                 </div>
                 <div className="relative p-6 flex-auto">
-                  <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full">
+                  <form onSubmit={handleSubmit(submitHandler)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full">
                     <div className="space-x-5">
-                    <label className="text-[#0F1926] text-sm font-bold mb-4">
+                    <label htmlFor="user" className="text-[#0F1926] text-sm font-bold mb-4">
                       User :  
                     </label>
                     <input 
                     type='radio'
-                    onChange={(e => setOptions(e.target.value))}
-                    value={options.user}
+                    id="user"
+                    name="user"
+                    value='user'
+                    {...register('user')}
                     className="text-2xl text-white" />
                     </div>
-                    <div className="space-x-5">
-                    <label className="text-[#0F1926] text-sm font-bold mb-4">
+                    <div className="space-x-5 pb-6">
+                    <label htmlFor="author" className="text-[#0F1926] text-sm font-bold mb-4">
                       Author :  
                     </label>
                     <input 
                     type='radio'
-                    onChange={(e => setOptions(e.target.value))}
-                    value={options.author}
+                    id="author"
+                    name="author"
+                    value="author"        
+                    {...register('author')}
                     className="text-2xl text-white" />
                     </div>
-                  </form>
-                </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
+                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-white bg-[#0F1926] active:bg-blue-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setShowModal(false)}
+                    type="submit"
                   >
                     Submit
                   </button>
+                </div>
+                  </form>
                 </div>
               </div>
             </div>
