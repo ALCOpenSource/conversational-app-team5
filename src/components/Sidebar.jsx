@@ -8,8 +8,6 @@ import { GiArchiveResearch } from 'react-icons/gi'
 import { MdAnalytics } from 'react-icons/md'
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/ContextProvider";
-import { auth } from "../contexts/auth";
-
 
 const Sidebar = () => {
     const [open, setOpen] = useState(true);

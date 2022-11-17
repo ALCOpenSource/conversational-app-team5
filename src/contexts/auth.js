@@ -51,26 +51,27 @@ export const uiConfig = {
   },
 };
 
-// export const validateToken = () => {
-//     firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-//       console.log(idToken)
-//       fetch('https://masterminds-9786b.web.app/api/v1/validate-token', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//           token: idToken
-//         }),
-//       } ).then((response) => response.json())
-//       .then((data) => {
-//         console.log('Success:', data);
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//       });
-//     }).catch(function(error) {
-//       // Handle error
-//     });
-//   }
+/**
+ * TODO: WHAT DO WE NEED TO CHECK TO ENSURE A USER IS VALID
+ * This would just check the user attributes and make sure 
+ * we have a correct user
+ * @returns boolean
+ */
+ const userIsValid = () => {
+  return true;
+}
 
+export const getUserOrNull = async () => {
+  return await new Promise( async (resolve, _) => {
+    firebase.auth().onAuthStateChanged(_user => {
+      // User has signed in, we should not display dialog next time because of firebase auto-login
+      console.log(_user);
+      if (_user !== null && userIsValid()) {
+        resolve(_user);
+      } else {
+        // User has signed-out  implement logic to trigger the login dialog or redirect to sign-in page
+        resolve(null);
+      }
+    });
+  } );
+};

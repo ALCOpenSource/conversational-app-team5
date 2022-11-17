@@ -1,12 +1,11 @@
 
-import React, { createContext, useEffect, useState, useContext,  useReducer  } from "react";
-import { FadeLoader } from "react-spinners";
-import { auth } from "./auth";
+import React, { createContext, useContext,  useReducer  } from "react";
 import { useSnackbar } from 'notistack';
 
 export const AuthContext = createContext();
 
 const initialState = {
+  loading: true,
   user: localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null,
@@ -21,19 +20,19 @@ function reducer(state, action) {
   console.log(action.payload);
   switch (action.type) {
     case 'USER_LOGIN':
-        return { ...state, user: action.payload };
-        default:
-         return state;
+      return { ...state, user: action.payload, loading: false };
     case 'USER_LOGOUT':
       return {
           ...state,
           user: null,
+          loading: true
         };  
-        case 'COURSES':
-          return { ...state, courses: action.payload }; 
-      }
-  };
-
+    case 'COURSES':
+      return { ...state, courses: action.payload, loading: false }; 
+    default:
+      return state;
+  }
+};
 
 
 export const AuthProvider = ({ children }) => {
