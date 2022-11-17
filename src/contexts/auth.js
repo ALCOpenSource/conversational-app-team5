@@ -27,6 +27,7 @@ const config = {
 export const app = firebase.initializeApp(config);
 export const auth = getAuth(app)
 
+
 // Configure FirebaseUI.
 export const uiConfig = {
   // Popup signin flow rather than redirect flow.
@@ -72,3 +73,4 @@ export const uiConfig = {
 //       // Handle error
 //     });
 //   }
+

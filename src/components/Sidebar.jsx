@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GoHome } from 'react-icons/go';
 import logo from '../assets/logo.png'
 import { HiOutlineAcademicCap } from 'react-icons/hi'
@@ -6,22 +6,37 @@ import { RiAccountPinCircleFill, RiLogoutBoxLine } from 'react-icons/ri'
 import { AiOutlineSchedule, AiOutlineFileText, AiOutlineSetting } from "react-icons/ai"
 import { GiArchiveResearch } from 'react-icons/gi'
 import { MdAnalytics } from 'react-icons/md'
-import { Link } from "react-router-dom";
-import { app } from "../contexts/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/ContextProvider";
+import { auth } from "../contexts/auth";
 
 
 const Sidebar = () => {
     const [open, setOpen] = useState(true);
     const Menus = [
-      { title: "Home", icon: <GoHome/> },
-      { title: "Courses", icon: <HiOutlineAcademicCap/>},
-      { title: "Accounts", icon: <RiAccountPinCircleFill/>, gap: true },
-      { title: "Schedule", icon: <AiOutlineSchedule/> },
-      { title: "Search", icon: <GiArchiveResearch/> },
-      { title: "Analytics", icon: <MdAnalytics />},
-      { title: "Files", icon: <AiOutlineFileText/>, gap: true },
-      { title: "Setting", icon: <AiOutlineSetting/> },
+      { title: "home", icon: <GoHome/>, href: "" },
+      { title: "courses", icon: <HiOutlineAcademicCap/>, href: "courses"},
+      { title: "accounts", icon: <RiAccountPinCircleFill/>, gap: true, href: "accounts"},
+      { title: "schedule", icon: <AiOutlineSchedule/>, href: "schedule" },
+      { title: "search", icon: <GiArchiveResearch/>, href: "search" },
+      { title: "analytics", icon: <MdAnalytics />, href: "analytics"},
+      { title: "files", icon: <AiOutlineFileText/>, gap: true, href: "files" },
+      { title: "setting", icon: <AiOutlineSetting/>, href: "setting" },
     ];
+
+    const { dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const logout = () => {
+      dispatch({ type: 'USER_LOGOUT' });
+      // localStorage.clear('user');
+      navigate('/register');
+    }
+
+    // const unregisterAuthObserver = auth.onAuthStateChanged(user => {
+    //   setCurrentUser(null);
+    //   localStorage.clear();
+    // });
   return (
    <div
       className={` ${
@@ -55,7 +70,7 @@ const Sidebar = () => {
             ${Menu.gap ? "mt-9" : "mt-2"}`}
           >
             <div>{Menu.icon}</div>
-            <span className={`${!open && "hidden"} origin-left duration-200`}>
+            <span className={`${!open && "hidden"} capitalize origin-left duration-200`}>
               {Menu.title}
             </span>
           </li>
@@ -65,7 +80,7 @@ const Sidebar = () => {
         className={`flex rounded-md p-2 cursor-pointer text-black hover:bg-[#D9D4D2]
          active:bg-[#77868C]  text- text-sm items-center gap-x-4 mt-2`}>
           <RiLogoutBoxLine />
-          <a href='/' onClick={() => app.auth().signOut()}
+          <a href='/register' onClick={() => logout()}
           className={`${!open && "hidden"} origin-left duration-200`}>Sign-out</a>
           </li>
       </ul>
