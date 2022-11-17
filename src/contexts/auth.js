@@ -68,6 +68,9 @@ export const getUserOrNull = async () => {
       console.log(_user);
       if (_user !== null && userIsValid()) {
         resolve(_user);
+      const accessToken = _user._delegate.accessToken
+      // console.log(accessToken);
+      localStorage.setItem('token', accessToken);
       } else {
         // User has signed-out  implement logic to trigger the login dialog or redirect to sign-in page
         resolve(null);
