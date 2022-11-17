@@ -1,14 +1,29 @@
-import React, { useEffect, useState } from 'react'
-import { Header, Modal } from '../components'
+import React, { useEffect, useState } from 'react';
+import { Header, Modal } from '../components';
+import { GetCourses } from '../apis/api';
 
-const Courses = ({ courses }) => {
+// const Courses = ({ courses }) => {
+const Courses = ({ }) => {
   const [showModal, setShowModal] = useState(false);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     setTimeout(()=>{
       setShowModal(true)
     }, 2000)
   }, []);
+
+  useEffect(() => {
+    GetCourses()
+    .then((data) => {
+      console.log(data);
+      localStorage.setItem('courses', JSON.stringify(data));
+      setCourses(data);
+    })
+  }, [courses]);
+
+ 
+  console.log("Courses:", courses);
 
   return (
     <div className=' container mx-auto my-8'>
