@@ -1,21 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Header, Modal } from '../components'
-import { AuthContext } from '../contexts/ContextProvider';
+import { useForm } from 'react-hook-form';
+import { useSnackbar } from 'notistack';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
+
+
+import { AuthContext } from '../contexts/ContextProvider';
+import { Header, Modal } from '../components'
+import { PostCourses } from '../apis/api';
 
 const CreateCourses = () => {
   const [showModal, setShowModal] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
-  const { user } = state;
   const [tags, setTags] = useState([]);
- 
-  const handleChange = value => {
-    setTags(value);
-  }
- 
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { user } = state;
   const navigate = useNavigate();
   const {
     register,
@@ -25,8 +26,48 @@ const CreateCourses = () => {
     trigger
     } = useForm();
 
-    const submitHandler = async (data) => {
+    const handleTagsChange = (newTags, changedTags, changedIndexes) => {
+      console.log(tags)
+      console.log(newTags)
 
+      setTags(newTags);
+    }
+
+    const submitHandler = async (data) => {
+      console.log(data)
+      // course type should be a dropdown with and allowed values are ['video', 'link', 'text']
+
+
+      PostCourses(Object.assign(data, { author_id: user.uid, timestamp: new Date(), tags: tags }))
+        .then( (value) => {
+          console.log(value)
+          if (
+            value.hasOwnProperty('code') && value.hasOwnProperty('name') && value.code === "ERR_BAD_REQUEST" && value.name === "AxiosError"
+          ) {
+            enqueueSnackbar(
+              value.message,
+              { variant: 'error', autoHideDuration: 60000 }
+            );
+          }
+
+
+          if (
+            value.hasOwnProperty('status') && (value.status === 200 || value.status === 201)
+          ) {
+            enqueueSnackbar(
+              'Course created successfully',
+              { variant: 'success', autoHideDuration: 60000 }
+            );
+          }
+
+        } )
+        .catch( (error) => {
+          enqueueSnackbar(
+            error,
+            { variant: 'error', autoHideDuration: 60000 }
+          );
+          console.log(error)
+        } )
     }
 
   useEffect(() => {
@@ -176,13 +217,14 @@ const CreateCourses = () => {
                       id="tags"
                       autoComplete="off"
                       required={true}
-                      {...register('tags', {
-                        required: 'Please Enter the tags!!!'
-                      })}
+                      // {...register('tags', {
+                      //   required: 'Please Enter the tags!!!',
+                      // validate: v => console.log(v)
+                      // })}
                       placeholder="Enter Tags"
                       maxTags={10}
                       value={tags}
-                      onChange={handleChange}
+                      onChange={handleTagsChange}
                       className="block w-full px-3 py-1 text-sm
                       h-32 focus:outline-none leading-5 rounded-md tag-box react-tagsinput focus:border-gray-200 border-gray-200 focus:ring focus:ring-[#0F1926] border p-2 bg-gray-100 border-transparent focus:bg-white"
                       type="text"

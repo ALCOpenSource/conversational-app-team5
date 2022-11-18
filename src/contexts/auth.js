@@ -61,6 +61,14 @@ export const uiConfig = {
   return true;
 }
 
+export const getToken = async () => {
+  return await new Promise( async (resolve, _) => {
+    return firebase.auth().currentUser.getIdToken(/** forceRefresh */ true).then( (token) => {
+      resolve(token);
+    } );
+  } );
+};
+
 export const getUserOrNull = async () => {
   return await new Promise( async (resolve, _) => {
     firebase.auth().onAuthStateChanged(_user => {
