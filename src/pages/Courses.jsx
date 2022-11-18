@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Header, Modal } from '../components';
 import { GetCourses } from '../apis/api';
 
-// const Courses = ({ courses }) => {
 const Courses = () => {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState([]);
@@ -27,14 +26,6 @@ const Courses = () => {
 
   return (
     <div className=' container mx-auto my-8'>
-     {/* <button
-        className="bg-blue-200 text-black active:bg-blue-500 
-      font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Fill Details
-      </button> */}
     {showModal ? <Modal showModal={showModal} setShowModal={setShowModal} /> : ''}
     <Header title="Courses" />
     <div className='p-10'>
