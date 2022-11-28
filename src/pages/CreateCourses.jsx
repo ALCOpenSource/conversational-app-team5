@@ -76,6 +76,7 @@ const CreateCourses = () => {
     }, 2000)
   }, []);
 
+
   return (
     <div>
     {showModal ? <Modal showModal={showModal} setShowModal={setShowModal} /> : ''}
@@ -234,7 +235,6 @@ const CreateCourses = () => {
       <button
                     className="text-white  bg-[#0F1926] hover:bg-[#0F1926] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-3 cursor-pointer mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="submit"
-                    // to="/"
                   >
                     Create a Course
                   </button>

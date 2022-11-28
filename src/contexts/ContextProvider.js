@@ -9,7 +9,9 @@ const initialState = {
   user: localStorage.getItem('user')
   ? JSON.parse(localStorage.getItem('user'))
   : null,
-  courses: localStorage.getItem('courses'),
+  courses: localStorage.getItem('courses')
+  ? JSON.parse(localStorage.getItem('user'))
+  : null,
 };
 
 export function useAuth() {
@@ -39,7 +41,6 @@ export const AuthProvider = ({ children }) => {
   // const [currentUser, setCurrentUser] = useState({})
   // const [pending, setPending] = useState(true)
 
-  const { enqueueSnackbar } = useSnackbar();
   const [state, dispatch] = useReducer(reducer, initialState)
 
 
