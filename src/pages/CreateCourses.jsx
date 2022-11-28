@@ -76,6 +76,7 @@ const CreateCourses = () => {
     }, 2000)
   }, []);
 
+
   return (
     <div>
     {showModal ? <Modal showModal={showModal} setShowModal={setShowModal} /> : ''}
