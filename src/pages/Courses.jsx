@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Header, Modal } from '../components';
+import React, { useEffect, useState, useContext } from 'react';
 import { GetCourses } from '../apis/api';
+import { CourseList } from './courses/List';
+import { Header, Modal, ChatBox } from '../components';
+import { AuthContext } from '../contexts/ContextProvider';
+
+
 
 const Courses = () => {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState([]);
+
+  const { state } = useContext(AuthContext);
+  const { user } = state;
 
   useEffect(() => {
     setTimeout(()=>{
@@ -12,6 +19,7 @@ const Courses = () => {
     }, 2000)
   }, []);
 
+  /*
   useEffect(() => {
     GetCourses()
     .then((data) => {
@@ -20,14 +28,16 @@ const Courses = () => {
       setCourses(data);
     })
   }, [courses]);
-
+*/
  
-  console.log("Courses:", courses);
+  // console.log("Courses:", courses);
 
   return (
     <div className=' container mx-auto my-8'>
     {showModal ? <Modal showModal={showModal} setShowModal={setShowModal} /> : ''}
+
     <Header title="Courses" />
+
     <div className='p-10'>
             <div className='grid lg:grid-cols-3 md:grid-cols-2 pl-5 sm:grid-cols-1 gap-10 space-x-10 pt-10 justify-between items-center'>
                 <div className='w-[20vw]  h-full bg-[#0F1926] rounded-lg border flex flex-col justify-between p-5 space-y-5 hover:shadow-md'>
@@ -65,6 +75,7 @@ const Courses = () => {
                 </div>        
             </div>
           </div>
+
     </div>
   )
 }
