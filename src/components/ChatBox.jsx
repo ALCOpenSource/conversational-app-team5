@@ -17,9 +17,8 @@ import Typography from '@mui/material/Typography';
 
 import logo from '../assets/logo.png';
 import { io } from "socket.io-client";
-import Navbar from './Navbar';
 
-const URL = "http://localhost:3000";
+const URL = "https://masterminds-app.netlify.app";
 const socket = io(URL, {autoConnect: false});
 
 const initialState = {
