@@ -8,6 +8,7 @@ import { Navbar, Sidebar, Spinner } from './components';
 import './App.css';
 
 function App() {
+  // localStorage.clear()
   const { state, dispatch } = useContext(AuthContext);
   const { loading, user } = state;
 

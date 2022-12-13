@@ -73,9 +73,10 @@ export const getUserOrNull = async () => {
   return await new Promise( async (resolve, _) => {
     firebase.auth().onAuthStateChanged(_user => {
       // User has signed in, we should not display dialog next time because of firebase auto-login
-      console.log(_user);
+      // console.log(_user);
       if (_user !== null && userIsValid()) {
         resolve(_user);
+      
       const accessToken = _user._delegate.accessToken
       // console.log(accessToken);
       localStorage.setItem('token', accessToken);

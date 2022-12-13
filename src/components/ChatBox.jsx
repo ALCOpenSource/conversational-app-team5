@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography';
 import logo from '../assets/logo.png';
 import { io } from "socket.io-client";
 
-const URL = "https://masterminds-app.netlify.app";
+const URL = "https://conversational-app-team-5.herokuapp.com";
 const socket = io(URL, {autoConnect: false});
 
 const initialState = {
@@ -187,6 +187,7 @@ const ChatBox = ({ user }) => {
   }, [state.messages]);
 
   return <>
+ 
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       { state?.messages?.map((message) => {
         return <div key={`${message.index}`}>
