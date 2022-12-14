@@ -18,22 +18,9 @@ import Typography from '@mui/material/Typography';
 import logo from '../assets/logo.png';
 import { io } from "socket.io-client";
 
-const URL = "http://localhost:3000";
+const URL = "https://conversational-app-team-5.herokuapp.com";
 const socket = io(URL, {autoConnect: false});
 
-/**
- * a message would have this structure
- * sender: this would be the bot
- * senderMessage: ...
- * receiver: this would be the user
- * receiverMessage: ...
- */
-
-/* for debugging!!!
-socket.onAny((event, ...args) => {
-  console.log(event, args);
-});
-*/
 const initialState = {
   messages: [{index: 0, senderMessage: 'What will you like to study', receiverMessage: ''}],
   type: 'starting'
@@ -107,7 +94,7 @@ const ItemSelection = ({onSelect, disabled, items}) => {
   );
 }
 
-const ChatBox = ({user}) => {
+const ChatBox = ({ user }) => {
   const [message, setMessage] = React.useState('');
   const [processing, setProcessing] = React.useState(false);
   const [processingSelection, setProcessingSelection] = React.useState(false);
@@ -200,6 +187,7 @@ const ChatBox = ({user}) => {
   }, [state.messages]);
 
   return <>
+ 
     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
       { state?.messages?.map((message) => {
         return <div key={`${message.index}`}>
@@ -248,9 +236,7 @@ const ChatBox = ({user}) => {
         })
       }
     </List>
-
-    <div className="">
-      {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="filled"> */}
+   <div className="">     
       <FormControl variant="filled">
         <InputLabel htmlFor="filled-adornment-message">Your message</InputLabel>
           <FilledInput
@@ -267,14 +253,13 @@ const ChatBox = ({user}) => {
                   edge="end"
                 >
                   <GoSearch />
-                  {/* <Search /> */}
-                </IconButton>
+                 </IconButton>
               </InputAdornment>
             }
             label="Password"
           />
         </FormControl>
-    </div>
+    </div> 
   </>
 };
 

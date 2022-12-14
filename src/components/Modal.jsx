@@ -43,7 +43,7 @@ const Modal = ({ showModal, setShowModal }) => {
                   <form onSubmit={handleSubmit(submitHandler)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 w-full">
                     <div className="space-x-5">
                     <label htmlFor="user" className="text-[#0F1926] text-sm font-bold mb-4">
-                      User :  
+                    Are you a User :  
                     </label>
                     <input 
                     type='radio'
@@ -55,7 +55,7 @@ const Modal = ({ showModal, setShowModal }) => {
                     </div>
                     <div className="space-x-5 pb-6">
                     <label htmlFor="author" className="text-[#0F1926] text-sm font-bold mb-4">
-                      Author :  
+                    Are you an Author :  
                     </label>
                     <input 
                     type='radio'

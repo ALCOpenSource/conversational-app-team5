@@ -4,6 +4,7 @@ import Login from './Login';
 import { auth, uiConfig } from '../contexts/auth';
 import { AuthContext } from '../contexts/ContextProvider';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const Register = () => {
   const { state } = useContext(AuthContext);
@@ -11,12 +12,17 @@ const Register = () => {
 
 
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
    
   useEffect(() => {
     if(user) {
       navigate("/")
+      enqueueSnackbar(
+        'Log in Successful.',
+        { variant: 'success', autoHideDuration: 1000 }
+      );  
     }
-  }, [user, navigate]);
+  }, [user, navigate, enqueueSnackbar]);
 
 
   return (
