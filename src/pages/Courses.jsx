@@ -6,8 +6,7 @@ import { AuthContext } from '../contexts/ContextProvider';
 
 
 
-// const Courses = ({ courses }) => {
-const Courses = ({ }) => {
+const Courses = () => {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourses] = useState([]);
 
@@ -20,7 +19,7 @@ const Courses = ({ }) => {
     }, 2000)
   }, []);
 
-  /*
+
   useEffect(() => {
     GetCourses()
     .then((data) => {
@@ -29,28 +28,19 @@ const Courses = ({ }) => {
       setCourses(data);
     })
   }, [courses]);
-*/
+
  
-  // console.log("Courses:", courses);
+  console.log("Courses:", courses);
 
   return (
     <div className=' container mx-auto my-8'>
-     {/* <button
-        className="bg-blue-200 text-black active:bg-blue-500 
-      font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-        type="button"
-        onClick={() => setShowModal(true)}
-      >
-        Fill Details
-      </button> */}
     {showModal ? <Modal showModal={showModal} setShowModal={setShowModal} /> : ''}
 
     <Header title="Courses" />
 
     <ChatBox user={user} />
 
-    <CourseList courses={courses} />
-
+    {/* <CourseList courses={courses} /> */}
     </div>
   )
 }
