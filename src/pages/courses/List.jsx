@@ -10,7 +10,7 @@ export const CourseList = ( { courses } ) => {
       </ul>
     )
   }
-  console.log(courses);
+
   return (<div className='p-10'>
     <div className='grid lg:grid-cols-3 md:grid-cols-2 pl-5 sm:grid-cols-2 gap-10 pt-10 justify-between items-center'>
       {

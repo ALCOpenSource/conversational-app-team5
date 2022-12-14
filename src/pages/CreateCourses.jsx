@@ -12,11 +12,11 @@ import { PostCourses } from '../apis/api';
 
 const courseType = [
   { 
-    id: 1,
+    id: 'text',
     type: "article"
   },
   {
-    id: 2,
+    id: 'video',
     type: "multimedia"
   }
 ]
@@ -50,7 +50,7 @@ const CreateCourses = () => {
       // course type should be a dropdown with and allowed values are ['video', 'link', 'text']
 
 
-      PostCourses(Object.assign(data, { author_id: user.uid, timestamp: new Date(), tags: tags }))
+      PostCourses(Object.assign(data, { author_name: user.displayName, author_id: user.uid, timestamp: new Date(), tags: tags }))
         .then( (value) => {
           console.log(value)
           if (
@@ -186,7 +186,7 @@ const CreateCourses = () => {
                 >
                   <option value="others" className="sm:text-bg bg-white">Select Content Type</option>
                   {type.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-white text-black " value={item.type} key={item.id}>
+                  <option className="text-base border-0 outline-none capitalize bg-white text-black " value={item.id} key={item.id}>
                     {item.type}
                   </option>
                       ))}
