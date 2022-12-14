@@ -5,7 +5,6 @@ import { Header, Modal, ChatBox } from '../components';
 import { AuthContext } from '../contexts/ContextProvider';
 
 
-
 // const Courses = ({ courses }) => {
 const Courses = ({ }) => {
   const [showModal, setShowModal] = useState(false);
@@ -20,19 +19,17 @@ const Courses = ({ }) => {
     }, 2000)
   }, []);
 
-  /*
   useEffect(() => {
     GetCourses()
     .then((data) => {
-      console.log(data);
-      localStorage.setItem('courses', JSON.stringify(data));
-      setCourses(data);
+      if (data.status === 200 && data.hasOwnProperty('data') ) {
+        localStorage.setItem('courses', JSON.stringify(data.data));
+        setCourses(data.data);
+      }
+      // console.log(data);
     })
-  }, [courses]);
-*/
+  }, []);
  
-  // console.log("Courses:", courses);
-
   return (
     <div className=' container mx-auto my-8'>
      {/* <button
