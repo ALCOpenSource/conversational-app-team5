@@ -12,6 +12,8 @@ const initialState = {
   courses: localStorage.getItem('courses')
   ? JSON.parse(localStorage.getItem('user'))
   : null,
+  messages: [{index: 0, senderMessage: 'What will you like to study', receiverMessage: ''}],
+  type: 'starting',
 };
 
 export function useAuth() {
@@ -20,6 +22,8 @@ export function useAuth() {
 
 function reducer(state, action) {
   console.log(action.payload);
+  const latestMessage = state.messages[state.messages.length - 1];
+  const msgs = state.messages.filter( msg => msg.index !== latestMessage.index );
   switch (action.type) {
     case 'USER_LOGIN':
       return { ...state, user: action.payload, loading: false };
@@ -31,8 +35,23 @@ function reducer(state, action) {
         };  
     case 'COURSES':
       return { ...state, courses: action.payload, loading: false }; 
+    case 'starting':
+        latestMessage['receiverMessage'] = action.message;
+        msgs.push(latestMessage);
+        msgs.push( {index: msgs.length, items: [], senderMessage: 'We are getting your data...', receiverMessage: ''} );
+        return {...state, type: 'courses-search', messages: msgs };
+    case 'courses-search':
+        msgs.push( {index: msgs.length, senderMessage: 'Select available study material', items: action.data, receiverMessage: ''} );
+        return {...state, type: 'course-selection', messages: msgs };
+    case 'course-selection':
+        latestMessage['receiverMessage'] = action.message;
+        msgs.push(latestMessage);
+        msgs.push( {index: msgs.length, senderMessage: 'We are getting your course info', items: [], receiverMessage: ''} );
+        return {...state, type: 'course-selection-search', messages: msgs }
     default:
       return state;
+      // throw new Error();
+      // return state;
   }
 };
 

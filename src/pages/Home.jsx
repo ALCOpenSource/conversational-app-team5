@@ -17,6 +17,10 @@ const Home = () => {
     <div>
        <h2 className='text-2xl font-medium pb-3'>Welcome to Masterminds </h2>
        <p className='text-14'>A conversational learning application that make it easy for users to learn at anytime on socials or web platform</p>
+
+       <div className='pt-20'>
+        Search for any topic you want to learn
+       </div>
     </div>
   )
 }

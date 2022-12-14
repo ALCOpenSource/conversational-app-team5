@@ -10,11 +10,23 @@ import { AuthContext } from '../contexts/ContextProvider';
 import { Header, Modal } from '../components'
 import { PostCourses } from '../apis/api';
 
+const courseType = [
+  { 
+    id: 1,
+    type: "article"
+  },
+  {
+    id: 2,
+    type: "multimedia"
+  }
+]
+
 const CreateCourses = () => {
   const [showModal, setShowModal] = useState(false);
   const { state, dispatch } = useContext(AuthContext);
   const [tags, setTags] = useState([]);
   const { enqueueSnackbar } = useSnackbar();
+  const [type, setType] = useState(courseType);
 
   const { user } = state;
   const navigate = useNavigate();
@@ -110,23 +122,23 @@ const CreateCourses = () => {
       </div>
       <div>
           <label
-                  htmlFor="timestamp"
+                  htmlFor="courseDuration"
                  className={`block pb-3 text-sm 2 ${
-                  errors.timestamp ? "text-red-400" : "text-gray-700 "} dark:text-gray-400 col-span-4 sm:col-span-2 font-medium text-sm`}>Course Duration:</label>
+                  errors.courseDuration ? "text-red-400" : "text-gray-700 "} dark:text-gray-400 col-span-4 sm:col-span-2 font-medium text-sm`}>Course Duration:</label>
             <input 
-                name="timestamp" 
-                id="timestamp" 
-                type="time" 
-                placeholder='1:00:00'
+                name="courseDuration" 
+                id="courseDuration" 
+                type="text" 
+                placeholder='Enter your course duration'
                 className={`block w-full ${
-                  errors.timestamp ? "text-red-400 border-red-400" : "text-gray-700 "} px-3  mb-2 py-1 text-sm focus:outline-none leading-5 rounded-md focus:border-gray-200 border-gray-200 focus:ring focus:ring-[#0F1926] border h-12 p-2 bg-gray-100 border-transparent focus:bg-white`}
-                  {...register("timestamp", { required: "Course Duration is Required!!!" })}
+                  errors.courseDuration ? "text-red-400 border-red-400" : "text-gray-700 "} px-3  mb-2 py-1 text-sm focus:outline-none leading-5 rounded-md focus:border-gray-200 border-gray-200 focus:ring focus:ring-[#0F1926] border h-12 p-2 bg-gray-100 border-transparent focus:bg-white`}
+                  {...register("courseDuration", { required: "Course Duration is Required!!!" })}
                  onKeyUp={() => {
-                  trigger("timestamp");
+                  trigger("courseDuration");
                 }}
                   required={true}
                   />
-                   {errors.timestamp && (
+                   {errors.courseDuration && (
                   <p className="text-red-500 text-sm mt-2">
                   Course Duration is Required!!!
                   </p>
@@ -161,24 +173,29 @@ const CreateCourses = () => {
                   htmlFor="contentType"
                  className={`block pb-3 text-sm 2 ${
                   errors.contentType ? "text-red-400" : "text-gray-700 "} dark:text-gray-400 col-span-4 sm:col-span-2 font-medium text-sm`}>Course Content Type:</label>
-            <input 
-                name="contentType" 
-                id="contentType" 
-                type="text" 
-                placeholder='Course Content Type'
-                className={`block w-full  ${
-                  errors.contentType ? "text-red-400 border-red-400" : "text-gray-700 "} px-3  mb-2 py-1 text-sm focus:outline-none leading-5 rounded-md focus:border-gray-200 border-gray-200 focus:ring focus:ring-[#0F1926] border h-12 p-2 bg-gray-100 border-transparent focus:bg-white`}
-                  {...register("contentType", { required: "Course Content Type is Required!!!" })}
-                 onKeyUp={() => {
-                  trigger("contentType");
-                }}
-                  required={true}
-                  />
-                   {errors.contentType && (
+                   <select
+                  // className="outline-none w-full text-base border border-gray-200 p-2 rounded-md cursor-pointer"
+                  onChange={(e) => {
+                    setType(e.target.value);
+                  }}
+                  id="contentType"
+                  required={true}  
+                  className={` ${
+                    errors.contentType ? ' border-red-400' : ''} w-full text-base border border-gray-200 p-2 rounded-md cursor-pointer`}
+                  {...register('contentType')}
+                >
+                  <option value="others" className="sm:text-bg bg-white">Select Content Type</option>
+                  {type.map((item) => (
+                  <option className="text-base border-0 outline-none capitalize bg-white text-black " value={item.type} key={item.id}>
+                    {item.type}
+                  </option>
+                      ))}
+                </select>
+                {errors.contentType && (
                   <p className="text-red-500 text-sm mt-2">
                   Course Content Type is Required!!!
                   </p>
-                )}
+                  )}
       </div>
       <div className="mt-6">
                     <label
@@ -195,7 +212,15 @@ const CreateCourses = () => {
                       autoComplete="off"
                       required={true}
                       {...register('description', {
-                        required: 'Description is Required!!!'
+                        required: 'Description is Required!!!',
+                        minLength: {
+                          value: 5,
+                          message: "Description must be more than % characters"
+                          },
+                          maxLength: {
+                          value: 200,
+                          message: "Description must be less than 200 characters"
+                          },
                       })}
                       placeholder="Write a short description about the course you want to create"
                       className="block w-full px-3 py-1 text-sm
