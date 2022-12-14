@@ -1,14 +1,13 @@
 import axios from "axios";
 import { getToken } from '../contexts/auth';
 
-const token = localStorage.getItem("token");
-
 export const GetCourses = async () => {
+  const token = await getToken();
   try {
     const data = await axios.get(
       `https://conversational-app-team-5.herokuapp.com/v1/courses`, {
       headers: {
-          "Authorization": token
+        "Authorization": token
       },
     });
     console.log("Get Courses",data);
@@ -20,8 +19,6 @@ export const GetCourses = async () => {
 
 export const PostCourses = async (body) => {
   const token = await getToken();
-
-  console.log(token)
 
   try {
     const data = await axios.post(
