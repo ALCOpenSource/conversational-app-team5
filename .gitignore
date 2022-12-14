@@ -1,6 +1,6 @@
 # Files i am ignoring
 package-lock.json
-
+backend/key/*
 # Logs
 logs
 *.log

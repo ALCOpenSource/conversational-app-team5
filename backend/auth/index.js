@@ -2,7 +2,13 @@
 
 const admin = require('firebase-admin');
 
-admin.initializeApp();
+const serviceAccount = require("../key/sdkf.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+// admin.initializeApp();
 
 const ValidateToken = async (req, res, next) => {
   const defaultAuth = admin.auth();
